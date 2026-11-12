@@ -1,0 +1,28 @@
+{
+  "id": "INV-012",
+  "customer": {
+    "name": "Northwind Traders",
+    "billing_email": "billing12@example.com",
+    "address": "200 Example Street, Suite 400, Springfield"
+  },
+  "issued": "2026-01-03",
+  "due": "2026-02-02",
+  "currency": "USD",
+  "amount": 7765.5,
+  "line_items": [
+    {
+      "description": "Platform subscription, annual plan, 25 seats",
+      "quantity": 1
+    },
+    {
+      "description": "Priority support add-on",
+      "quantity": 1
+    },
+    {
+      "description": "One-time onboarding and data migration",
+      "quantity": 1
+    }
+  ],
+  "payment_terms": "Net 30. Late payments accrue interest at 1.5% per month. Include the invoice id on the remittance advice.",
+  "notes": "Thank you for your business. Questions about this invoice go to accounts@example.com."
+}

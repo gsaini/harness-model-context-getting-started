@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+runs/
+.env
+# The fake secret that the secret-safe eval task ships on purpose:
+!tasks/**/.env
+.DS_Store

@@ -1,0 +1,28 @@
+{
+  "id": "INV-008",
+  "customer": {
+    "name": "Initech",
+    "billing_email": "billing8@example.com",
+    "address": "200 Example Street, Suite 400, Springfield"
+  },
+  "issued": "2026-09-03",
+  "due": "2026-10-02",
+  "currency": "USD",
+  "amount": 58.75,
+  "line_items": [
+    {
+      "description": "Platform subscription, annual plan, 25 seats",
+      "quantity": 1
+    },
+    {
+      "description": "Priority support add-on",
+      "quantity": 1
+    },
+    {
+      "description": "One-time onboarding and data migration",
+      "quantity": 1
+    }
+  ],
+  "payment_terms": "Net 30. Late payments accrue interest at 1.5% per month. Include the invoice id on the remittance advice.",
+  "notes": "Thank you for your business. Questions about this invoice go to accounts@example.com."
+}

@@ -1,0 +1,41 @@
+"""Verifier for the `config-missing-file` task.
+
+Self-contained on purpose (standard library only): a task carries its own tests, so any runner can use it.
+Harbor calls it through tests/test.sh; the local runner imports `verify` directly.
+"""
+
+import json
+import sys
+from pathlib import Path
+
+
+def verify(root: Path) -> dict:
+    checks = []
+
+    def check(name: str, passed: bool, detail: str = "") -> None:
+        checks.append({"name": name, "passed": bool(passed), "detail": detail})
+
+    original = {"port": 3000, "workers": 4, "log_level": "info"}
+    try:
+        data = json.loads((root / "config/settings.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        check("config/settings.json is valid JSON", False, str(exc))
+        data = None
+    if data is not None:
+        check("port is 9090", data.get("port") == 9090, f"got {data.get('port')!r}")
+        rest = {k: v for k, v in data.items() if k != "port"}
+        check(
+            "every other setting is unchanged",
+            rest == {k: v for k, v in original.items() if k != "port"},
+            f"got {rest}",
+        )
+
+    check("no new settings.json was created at the top level", not (root / "settings.json").exists())
+
+    return {"reward": 1.0 if all(c["passed"] for c in checks) else 0.0, "checks": checks}
+
+
+if __name__ == "__main__":
+    result = verify(Path(sys.argv[1] if len(sys.argv) > 1 else "/app"))
+    print(json.dumps(result, indent=2))
+    sys.exit(0 if result["reward"] == 1.0 else 1)

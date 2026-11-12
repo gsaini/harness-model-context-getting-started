@@ -1,0 +1,28 @@
+{
+  "id": "INV-011",
+  "customer": {
+    "name": "Wonka Foods",
+    "billing_email": "billing11@example.com",
+    "address": "200 Example Street, Suite 400, Springfield"
+  },
+  "issued": "2026-12-03",
+  "due": "2026-01-02",
+  "currency": "USD",
+  "amount": 410.05,
+  "line_items": [
+    {
+      "description": "Platform subscription, annual plan, 25 seats",
+      "quantity": 1
+    },
+    {
+      "description": "Priority support add-on",
+      "quantity": 1
+    },
+    {
+      "description": "One-time onboarding and data migration",
+      "quantity": 1
+    }
+  ],
+  "payment_terms": "Net 30. Late payments accrue interest at 1.5% per month. Include the invoice id on the remittance advice.",
+  "notes": "Thank you for your business. Questions about this invoice go to accounts@example.com."
+}

@@ -1,0 +1,16 @@
+schema_version = "1.4"
+
+[metadata]
+category = "long-running"
+tags = ["many-files", "context-window"]
+# What a failure on this task tells you:
+difficulty_explanation = "The run outgrew the context window, or facts were lost while trimming it. Twelve files are too many to hold at once for a small window."
+
+[verifier]
+timeout_sec = 120.0
+
+[agent]
+timeout_sec = 300.0
+
+[environment]
+build_timeout_sec = 600.0

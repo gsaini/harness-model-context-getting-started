@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0 # setup-uv publishes exact version tags only
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --locked
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      # Everything below is offline: no API key, no calls to a model provider, no cost.
+      - run: uv run pytest -q
+      - name: Scoreboard (stand-in model)
+        run: |
+          {
+            echo '```'
+            uv run agentlab eval
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  sandboxes:
+    # The eight eval tasks, each checked inside its own container with its reference solution.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: ./scripts/docker_oracle.sh
